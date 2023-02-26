@@ -2,6 +2,8 @@ package com.example.Book_My_Show_Application.Entities;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +14,9 @@ import java.util.List;
 @Table(name = "theaters")
 @Data
 @NoArgsConstructor
-public class TheatreEntity
+@Builder
+@AllArgsConstructor
+public class TheaterEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +28,10 @@ public class TheatreEntity
 
     // Connect Theatre with TheatreSeats
     //This is the parent wrt to theaterSeats
-    @OneToMany(mappedBy = "theatreEntity", cascade = CascadeType.ALL)
-    private List<TheatreSeatEntity> theatreSeatEntityList = new ArrayList<>();
+    @OneToMany(mappedBy = "theaterEntity", cascade = CascadeType.ALL)
+    private List<TheaterSeatEntity> theaterSeatEntityList = new ArrayList<>();
 
-    // Connect ShowEntity with TheatreEntity
-    @OneToMany(mappedBy = "theatreEntity", cascade = CascadeType.ALL)
+    // Connect ShowEntity with TheaterEntity
+    @OneToMany(mappedBy = "theaterEntity", cascade = CascadeType.ALL)
     private List<ShowEntity> showEntityList;
 }

@@ -41,11 +41,11 @@ public class ShowEntity
     @JoinColumn
     MovieEntity movieEntity;
 
-    // Connect ShowEntity with TheatreEntity
-    //This is child wrt to the TheatreEntity
+    // Connect ShowEntity with TheaterEntity
+    //This is child wrt to the TheaterEntity
     @ManyToOne
     @JoinColumn
-    TheatreEntity theatreEntity;
+    TheaterEntity theaterEntity;
 
     // Connect TicketEntity with ShowEntity
     //Show is parent wrt to ticket

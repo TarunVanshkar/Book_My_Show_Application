@@ -3,6 +3,8 @@ package com.example.Book_My_Show_Application.Entities;
 
 import com.example.Book_My_Show_Application.Enums.SeatType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +12,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "theatre_seats")
 @Data
 @NoArgsConstructor
-public class TheatreSeatEntity
+@Builder
+@AllArgsConstructor
+public class TheaterSeatEntity
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,5 +27,6 @@ public class TheatreSeatEntity
     // Connect Theatre with TheatreSeats
     @ManyToOne
     @JoinColumn
-    private TheatreEntity theatreEntity;
+    private TheaterEntity theaterEntity;   // Since it is child so we always need to set this because it is foreign key attribute
+                                           // so it will identify who is my parent
 }
