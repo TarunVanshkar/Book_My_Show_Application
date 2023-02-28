@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "theatre_seats")
+@Table(name = "theater_seats")
 @Data
 @NoArgsConstructor
 @Builder
@@ -20,6 +20,7 @@ public class TheaterSeatEntity
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Enumerated(value = EnumType.STRING)
     private SeatType seatType;
 
     private String seatNo;

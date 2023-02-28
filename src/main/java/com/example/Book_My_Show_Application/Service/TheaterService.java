@@ -6,6 +6,7 @@ import com.example.Book_My_Show_Application.Entities.TheaterEntity;
 import com.example.Book_My_Show_Application.Entities.TheaterSeatEntity;
 import com.example.Book_My_Show_Application.EntryDtos.TheaterEntryDto;
 import com.example.Book_My_Show_Application.Enums.SeatType;
+import com.example.Book_My_Show_Application.Repository.TheaterRepository;
 import com.example.Book_My_Show_Application.Repository.TheaterSeatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +20,21 @@ public class TheaterService
     @Autowired
     TheaterSeatRepository theaterSeatRepository;
 
-    public String addTheater(TheaterEntryDto theaterEntryDto)
+    @Autowired
+    TheaterRepository theaterRepository;
+
+    public String addTheater(TheaterEntryDto theaterEntryDto) throws Exception
     {
+        //Do some validations :
+        if(theaterEntryDto.getName()==null || theaterEntryDto.getLocation()==null)   // or if it already exist
+        {
+            throw new Exception("Name and location should valid");
+        }
         TheaterEntity theaterEntity = TheaterConverter.convertTheaterEntryDtoToEntity(theaterEntryDto);
         List<TheaterSeatEntity> theaterSeatEntityList = createTheaterSeats(theaterEntryDto, theaterEntity);
-        return "Theater created successfully";
+        theaterEntity.setTheaterSeatEntityList(theaterSeatEntityList);
+        theaterRepository.save(theaterEntity);
+        return "Theater added successfully";
     }
 
 
@@ -54,7 +65,7 @@ public class TheaterService
             theaterSeatEntityList.add(theaterSeatEntity);
         }
 
-        theaterSeatRepository.saveAll(theaterSeatEntityList);
+        //theaterSeatRepository.saveAll(theaterSeatEntityList);  --> Just save the parent and the child will automatically be saved
         return theaterSeatEntityList;
     }
 }
