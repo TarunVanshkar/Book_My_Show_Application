@@ -5,6 +5,7 @@ import com.example.Book_My_Show_Application.Entities.*;
 import com.example.Book_My_Show_Application.EntryDtos.ShowEntryDto;
 import com.example.Book_My_Show_Application.Enums.SeatType;
 import com.example.Book_My_Show_Application.Repository.MovieRepository;
+import com.example.Book_My_Show_Application.Repository.ShowRepository;
 import com.example.Book_My_Show_Application.Repository.TheaterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class ShowService
 
     @Autowired
     TheaterRepository theaterRepository;
+
+    @Autowired
+    ShowRepository showRepository;
 
     public String addShow(ShowEntryDto showEntryDto) throws Exception
     {
@@ -49,6 +53,7 @@ public class ShowService
 
 
         //Now we  also need to update the parent entities(MovieEntity and TheaterEntity)
+        showEntity = showRepository.save(showEntity);
         List<ShowEntity> showEntityList = movieEntity.getShowEntityList();  // get
         showEntityList.add(showEntity);  // set
         movieEntity.setShowEntityList(showEntityList);   // again update
