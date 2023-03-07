@@ -1,7 +1,8 @@
 package com.example.Book_My_Show_Application.EntryDtos;
 
 
-import jakarta.persistence.Column;
+//import jakarta.persistence.Column;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.NonNull;
 
